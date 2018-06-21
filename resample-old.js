@@ -66,28 +66,6 @@ Promise.all([promiseGetPatreon, promiseGetTwitter]).then(function(values){
 	drawCI("stats_skill", columns.stats_skill );
 	drawCI("learn_skill", columns.learn_skill );
 
-	// also, TEST: is "learn" STATISTICALLY higher than "stats"?
-	// test: resample rows, measure avg of learn & stats, count when NOT learn > stats.
-	// that's our... p-value? i think?
-	var fail = 0;
-	var count = 0;
-	for(var i=0; i<10000; i++){
-		var resampledData = resample(theData);
-		var statsColumn = getColumn(resampledData, 4);
-		var learnColumn = getColumn(resampledData, 6);
-		var statsAvg = average(statsColumn);
-		var learnAvg = average(learnColumn);
-		if(!(learnAvg > statsAvg)){
-			fail++;
-		}
-		count++;
-	}
-	console.log("p-value of Learn > Stats: "+roundToNearest2Digits(fail/count));
-	// p=0.05 for all
-	// p=0.42 for patreon
-	// p=0.02 for twitter
-
-
 });
 
 //////////////////////////////////////////////////////////////
